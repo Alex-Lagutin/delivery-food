@@ -19,9 +19,14 @@ const cardsMenu = document.querySelector(".cards-menu");
 
 let login = localStorage.getItem("gloDelivery");
 
-function toggleModal() {
+const valid = function (str) {
+  const nameReg = /^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$/;
+  return nameReg.test(str);
+};
+
+const toggleModal = function () {
   modal.classList.toggle("is-open");
-}
+};
 function toggleModalAuth() {
   loginInput.style.borderColor = "";
   modalAuth.classList.toggle("is-open");
@@ -52,7 +57,7 @@ function notAuthorized() {
   function logIn(event) {
     event.preventDefault();
 
-    if (loginInput.value) {
+    if (valid(loginInput.value)) {
       login = loginInput.value;
       localStorage.setItem("gloDelivery", login);
       toggleModalAuth();
@@ -63,6 +68,7 @@ function notAuthorized() {
       checkAuth();
     } else {
       loginInput.style.borderColor = "red";
+      loginInput.value = "";
     }
   }
 
@@ -146,11 +152,11 @@ function openGoods(event) {
       createCardGood();
       createCardGood();
       createCardGood();
-    }else {
+    } else {
       toggleModalAuth();
-      }
     }
   }
+}
 
 cartButton.addEventListener("click", toggleModal);
 close.addEventListener("click", toggleModal);
@@ -166,3 +172,10 @@ checkAuth();
 createCardRestaurant();
 createCardRestaurant();
 createCardRestaurant();
+
+new Swiper(".swiper-container", {
+  loop: true,
+  autoplay: true,
+  allowSlidePrev: true,
+  
+});
